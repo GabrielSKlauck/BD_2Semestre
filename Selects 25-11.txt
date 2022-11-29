@@ -1,0 +1,53 @@
+-- A)
+SELECT ds_cor,cd_cor
+FROM cor
+WHERE cor.cd_cor <> all(SELECT cd_cor FROM veiculo)
+-- OU
+SELECT ds_cor,cd_cor
+FROM cor
+WHERE cor.cd_cor NOT IN (SELECT cd_cor FROM veiculo)
+
+-- B)
+SELECT v.nr_placa, mo.ds_modelo
+FROM veiculo v, modelo mo
+WHERE v.nr_ano_mod = (SELECT max(nr_ano_mod) FROM veiculo)
+and v.cd_modelo = mo.cd_modelo
+
+-- C) 
+SELECT v.nr_placa, ma.ds_marca, mo.ds_modelo
+FROM veiculo v, modelo mo, marca ma 
+WHERE v.cd_modelo = mo.cd_modelo
+	AND mo.cd_marca = ma.cd_marca
+	AND nr_placa in(SELECT nr_placa 
+						FROM veiculo_combustivel
+						GROUP BY nr_placa
+						HAVING COUNT(*) >= 2)
+
+-- D) 
+SELECT mo.ds_modelo
+FROM veiculo v, modelo mo
+WHERE v.cd_modelo = mo.cd_modelo
+GROUP BY mo.ds_modelo
+HAVING COUNT(*) >= ALL(SELECT COUNT(*) FROM veiculo GROUP BY cd_modelo)
+
+-- E)
+SELECT ma.ds_marca, COUNT(*) qtde
+FROM modelo mo, marca ma
+WHERE mo.cd_marca = ma.cd_marca
+GROUP BY ma.ds_marca
+HAVING COUNT(*) <= ALL (SELECT COUNT(*) FROM modelo mo GROUP BY mo.cd_marca)
+
+-- F)
+SELECT a.ds_acessorio
+FROM acessorio a, veiculo_acessorio va
+WHERE a.cd_acessorio = va.cd_acessorio
+GROUP BY a.ds_acessorio
+HAVING BY COUNT(*) >= ALL (SELECT COUNT(*) FROM veiculo_acessorio GROUP BY cd_acessorio)
+
+-- G)
+SELECT ds_acessorio
+FROM acessorio
+WHERE cd_acessorio NOT IN(SELECT va.cd_acessorio
+									FROM veiculo v, veiculo_acessorio va
+									WHERE v.nr_placa = va.nr_placa
+											AND v.nr_ano_fab <= 2015)
