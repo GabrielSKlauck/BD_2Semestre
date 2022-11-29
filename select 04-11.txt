@@ -1,0 +1,52 @@
+-- A)
+SELECT proprietario.nm_proprietario, localidade.nm_localidade FROM proprietario, localidade 
+WHERE proprietario.cd_localidade = localidade.cd_localidade
+
+-- B)
+SELECT modelo.ds_modelo, marca.ds_marca FROM modelo, marca 
+WHERE marca.ds_marca = 'VW' and marca.cd_marca = modelo.cd_marca order BY modelo.ds_modelo
+
+-- C)
+SELECT marca.ds_marca, modelo.ds_modelo FROM marca, modelo 
+WHERE modelo.cd_marca = marca.cd_marca
+ORDER BY marca.cd_marca, modelo.cd_modelo ASC
+
+-- D)
+SELECT veiculo.nr_placa, veiculo.nr_ano_mod, cor.ds_cor FROM veiculo, cor 
+WHERE veiculo.cd_cor = cor.cd_cor
+ORDER BY veiculo.nr_ano_mod, cor.ds_cor
+
+-- E)
+SELECT veiculo.nr_placa, proprietario.nm_proprietario, localidade.nm_localidade FROM veiculo, proprietario, localidade
+WHERE veiculo.cd_proprietario = proprietario.cd_proprietario 
+AND proprietario.cd_localidade = localidade.cd_localidade
+AND proprietario.sg_uf = 'SC'
+
+-- F)
+SELECT veiculo.nr_placa, marca.ds_marca, modelo.ds_modelo, combustivel.ds_combustivel
+FROM veiculo, marca, modelo, combustivel, veiculo_combustivel
+WHERE veiculo.cd_modelo = modelo.cd_modelo
+	 AND modelo.cd_marca = marca.cd_marca
+		AND veiculo.nr_placa = veiculo_combustivel.nr_placa
+			AND veiculo_combustivel.cd_combustivel = combustivel.cd_combustivel
+
+-- G)
+SELECT veiculo.nr_placa, marca.ds_marca, modelo.ds_modelo, acessorio.ds_acessorio
+FROM veiculo, marca, modelo, veiculo_acessorio, acessorio
+WHERE veiculo.cd_modelo = modelo.cd_modelo
+	AND modelo.cd_marca = marca.cd_marca
+		AND veiculo.nr_placa = veiculo_acessorio.nr_placa
+		AND veiculo_acessorio.cd_acessorio = acessorio.cd_acessorio
+		AND acessorio.ds_acessorio LIKE '%Direcao Hidraulica%'
+
+-- H)
+SELECT veiculo.nr_placa, marca.ds_marca, modelo.ds_modelo, veiculo.nr_ano_mod, veiculo.nr_ano_fab, cor.ds_cor,
+veiculo.qt_km_rodado, veiculo.qt_portas, acessorio.ds_acessorio, combustivel.ds_combustivel 
+FROM veiculo, marca, modelo, acessorio, combustivel, veiculo_acessorio, cor, veiculo_combustivel												
+WHERE veiculo.cd_modelo = modelo.cd_modelo
+	AND modelo.cd_marca = marca.cd_marca
+		AND veiculo.nr_placa = veiculo_acessorio.nr_placa
+			AND veiculo_acessorio.cd_acessorio = acessorio.cd_acessorio
+				AND veiculo.nr_placa = veiculo_acessorio.nr_placa
+					AND veiculo_combustivel.cd_combustivel = combustivel.cd_combustivel
+						AND veiculo.cd_cor = cor.cd_cor

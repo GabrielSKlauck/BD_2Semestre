@@ -1,0 +1,35 @@
+-- A)
+SELECT * FROM modelo order BY ds_modelo
+
+-- B)
+SELECT ds_marca FROM marca
+
+-- C)
+SELECT * FROM proprietario WHERE sg_uf IN('sc','pr')
+
+-- D)
+SELECT * FROM proprietario WHERE ds_email IS NULL AND nr_telefone > 0
+
+-- E)
+SELECT nm_proprietario FROM proprietario WHERE nm_proprietario LIKE "%Silva%"
+
+-- F)
+SELECT * FROM veiculo WHERE nr_ano_fab <> nr_ano_mod
+
+-- G)
+SELECT nr_placa, nr_ano_mod, qt_km_rodado, qt_portas FROM veiculo WHERE nr_ano_fab >= 2000
+
+-- H)
+SELECT nr_placa FROM veiculo WHERE ds_observacao IS NULL
+
+-- I)
+SELECT * FROM veiculo WHERE qt_portas >= 4 ORDER BY nr_ano_mod DESC
+
+-- J)
+SELECT * from acessorio ORDER BY ds_acessorio 
+
+-- K)
+SELECT nr_placa, nr_ano_fab, nr_ano_mod FROM veiculo WHERE nr_ano_fab >= 2015 AND qt_km_rodado < 50000 AND qt_portas >= 4 AND ds_observacao IS NULL
+
+-- L)
+SELECT nm_proprietario FROM proprietario WHERE ds_bairro LIKE "%Novo%" OR ds_bairro LIKE "%Nova%" AND sg_uf = "SC"

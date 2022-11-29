@@ -1,0 +1,39 @@
+--INSERTS
+
+INSERT INTO Genero (cd_genero, ds_genero) values (01, 'Terror')
+INSERT INTO Genero (cd_genero, ds_genero) values (02, 'Acao')
+INSERT INTO Genero (cd_genero, ds_genero) values (03, 'Drama')
+
+INSERT INTO Censura (cd_censura, ds_censura) values(01, 'desmembramento/gore')
+INSERT INTO Censura (cd_censura, ds_censura) values(02, 'alavras de baixo calao')
+INSERT INTO Censura (cd_censura, ds_censura) values(03, 'temas sensiveis')
+
+INSERT INTO Filme values(01, 02, 'Exterminador', 'Robo que volta no tempo', 01:30:00, 1984:12:14,
+'S')
+INSERT INTO Filme values(02, 02, 'Hobbit 2', 'Bilbo numa jornada em para Erebor parte 2', 02:30:00, 2013:12:13,
+'S')
+INSERT INTO Filme values(03, 02, 'Hobbit 3', 'Bilbo finalmente chega em Erebor', 02:30:00, 2014:12:07,
+'S')
+INSERT INTO Filme values(04, 02, 'Os Bad Boys', 'Dois policiais do balacobaco', 02:00:00, 1995:04:07,
+'N')
+INSERT INTO Filme values(05, 02, 'Os Bad Boys 2', 'Dois policiais do balacobaco parte 2', 02:00:00, 2003:08:20,
+'N')
+
+INSERT INTO Atores(cd_autor, nm_ator) values(04, 'Will')
+INSERT INTO Atores(cd_autor, nm_ator) values(01, 'Arnold')
+INSERT INTO Atores(cd_autor, nm_ator) values(02, 'Orlando')
+INSERT INTO Atores(cd_autor, nm_ator) values(04, 'Lawrence')
+INSERT INTO Atores(cd_autor, nm_ator) values(02, 'Evangeline')
+
+--Alteraçao de filmes sem duracao para dublagem como 'S'
+
+UPDATE Filme SET fl_dublado = 'S' where nr_duracao = null
+
+--Exclusao de filmes onde nao apresentam sinopse
+
+DELETE FROM Filmes where ds_sinopse = null
+
+
+
+
+
