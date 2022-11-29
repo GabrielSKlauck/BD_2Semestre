@@ -1,0 +1,67 @@
+-- A)
+SELECT avg(qt_km_rodado) AS 'media de km rodado' 
+FROM veiculo
+
+-- B)
+SELECT MIN(nr_ano_fab) AS velho, MAX(nr_ano_fab) AS novo
+FROM veiculo
+
+-- C)
+SELECT COUNT(*) AS quantidade, nr_ano_mod AS 'ano listado'
+FROM veiculo
+WHERE nr_ano_mod = 2020
+
+-- D)
+SELECT COUNT(*) AS quantidade, combustivel.ds_combustivel
+FROM veiculo, combustivel, veiculo_combustivel
+WHERE veiculo.nr_placa = veiculo_combustivel.nr_placa
+AND veiculo_combustivel.cd_combustivel = combustivel.cd_combustivel
+GROUP BY combustivel.ds_combustivel
+order by max(combustivel.ds_combustivel) desc
+
+-- E)
+SELECT COUNT(*) AS quantidade, modelo.ds_modelo
+FROM veiculo, modelo
+WHERE veiculo.cd_modelo = modelo.cd_modelo
+GROUP BY modelo.ds_modelo
+
+-- F)
+SELECT count(*) AS quantidade, marca.ds_marca, modelo.ds_modelo
+FROM veiculo, marca, modelo
+WHERE veiculo.cd_modelo = modelo.cd_modelo
+AND modelo.cd_marca = marca.cd_marca
+GROUP BY marca.ds_marca
+
+
+-- G)
+SELECT COUNT(*) as quantidade, acessorio.ds_acessorio
+FROM veiculo, acessorio, veiculo_acessorio
+WHERE veiculo.nr_placa = veiculo_acessorio.nr_placa
+AND veiculo_acessorio.cd_acessorio = acessorio.cd_acessorio
+GROUP BY acessorio.ds_acessorio  
+
+-- H)
+SELECT COUNT(nm_proprietario) AS 'qtd propietario', localidade.nm_localidade
+FROM proprietario, localidade
+WHERE proprietario.cd_localidade = localidade.cd_localidade 
+AND proprietario.sg_uf like 'SC'
+GROUP BY localidade.nm_localidade
+
+-- I)
+SELECT COUNT(*), veiculo.nr_placa, marca.ds_marca, modelo.ds_modelo
+FROM acessorio, veiculo, marca, modelo, veiculo_acessorio
+WHERE veiculo.cd_modelo = modelo.cd_modelo
+AND modelo.cd_marca = marca.cd_marca
+AND veiculo.nr_placa = veiculo_acessorio .nr_placa
+AND veiculo_acessorio.nr_placa = acessorio.cd_acessorio
+GROUP BY acessorio.ds_acessorio
+
+
+-- J)
+SELECT COUNT(ds_combustivel) AS quantidade, combustivel.ds_combustivel, veiculo.nr_placa, marca.ds_marca, modelo.ds_modelo
+FROM veiculo, marca, modelo, veiculo_combustivel, combustivel
+WHERE veiculo.cd_modelo = modelo.cd_modelo
+AND modelo.cd_marca = marca.cd_marca
+AND veiculo.nr_placa = veiculo_combustivel.nr_placa
+AND veiculo_combustivel.cd_combustivel = combustivel.cd_combustivel
+GROUP BY combustivel.ds_combustivel 
