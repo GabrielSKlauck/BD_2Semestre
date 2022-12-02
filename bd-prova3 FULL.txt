@@ -1,0 +1,111 @@
+-- A)
+
+CREATE TABLE categoria(
+cd_categoria INTEGER NOT null, 
+ds_categoria VARCHAR(50),
+PRIMARY KEY (cd_categoria)
+
+);
+
+CREATE TABLE orcamento(
+nr_orcamento INTEGER NOT null,
+dt_emissao DATE,
+vl_total DECIMAL(8,2),
+PRIMARY KEY (nr_orcamento)
+);
+
+-- B) E A)
+create table produto(
+cd_produto INTEGER NOT null,
+nm_produto VARCHAR(50) UNIQUE key,
+qt_estoque INTEGER,
+vl_produto DECIMAL(8,2),
+cd_categoria INTEGER NOT NULL,
+
+PRIMARY KEY (cd_produto),
+
+CONSTRAINT fk_Produto_Categoria FOREIGN KEY (cd_categoria) REFERENCES categoria(cd_categoria)
+
+);
+
+CREATE TABLE item_orcamento(
+nr_orcamento INTEGER NOT null,
+cd_produto INTEGER NOT null,
+qt_produto INTEGER,
+vl_produto DECIMAL(8,2),
+vl_total_item DECIMAL(8,2),
+
+PRIMARY KEY (nr_orcamento, cd_produto),
+
+CONSTRAINT fk_item_orcamento_produto FOREIGN KEY (cd_produto) REFERENCES produto (cd_produto),
+
+CONSTRAINT fk_item_orcamento_orcamento FOREIGN KEY (nr_orcamento) REFERENCES orcamento (nr_orcamento)
+
+);
+
+-- C)
+INSERT INTO categoria(cd_categoria, ds_categoria) VALUES (01, "TINTAS");
+INSERT INTO categoria(cd_categoria, ds_categoria) VALUES (02, "FERRAMENTAS");
+INSERT INTO categoria(cd_categoria, ds_categoria) VALUES (03, "FIACAO/CABOS");
+INSERT INTO categoria(cd_categoria, ds_categoria) VALUES (04, "AZULEJOS/PORCELANA");
+INSERT INTO categoria(cd_categoria, ds_categoria) VALUES (05, "MATERIAL DE CONSTRUCAO");
+
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (01, "TINTA BRANCA", 60, 79.50, 01);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (02, "AZULEJO PORTUGUES", 100, 100, 04);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (03, "TIJOLO", 200, 25.99, 05);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (04, "FIO DE COBRE", 300, 15, 03);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (05, "MARTELO", 20, 6, 02);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (06, "ALICATE", 20, 8, 02);
+INSERT INtO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (07, "TINTA AZUL", 60, 50, 01);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (08, "VERNIZ", 30, 15, 01);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (09, "MADEIRA PARA CAIXARIA", 100, 15, 05);
+INSERT INTO produto(cd_produto, nm_produto, qt_estoque, vl_produto, cd_categoria)
+VALUES (10, "PISO ACIZENTADO", 150, 50, 04);
+
+
+INSERT INTO orcamento(nr_orcamento, dt_emissao, vl_total) 
+VALUES (01, "2022/11/01", 200);
+INSERT INTO orcamento(nr_orcamento, dt_emissao, vl_total) 
+VALUES (02, "2022/11/06", 350);
+INSERT INTO orcamento(nr_orcamento, dt_emissao, vl_total) 
+VALUES (03, "2022/11/03", 500);
+INSERT INTO orcamento(nr_orcamento, dt_emissao, vl_total) 
+VALUES (04, "2022/11/10", 1000);
+INSERT INTO orcamento(nr_orcamento, dt_emissao, vl_total) 
+VALUES (05, "2022/11/11", 1500);
+
+INSERT INTO item_orcamento(nr_orcamento, cd_produto, qt_produto, vl_produto, vl_total_item) 
+VALUES (1, 4, 50, 15, 750);
+INSERT INTO item_orcamento(nr_orcamento, cd_produto, qt_produto, vl_produto, vl_total_item) 
+VALUES (2, 10, 10, 50, 500);
+INSERT INTO item_orcamento(nr_orcamento, cd_produto, qt_produto, vl_produto, vl_total_item) 
+VALUES (3, 8, 5, 15, 75);
+INSERT INTO item_orcamento(nr_orcamento, cd_produto, qt_produto, vl_produto, vl_total_item) 
+VALUES (4, 7, 5, 50, 250);
+INSERT INTO item_orcamento(nr_orcamento, cd_produto, qt_produto, vl_produto, vl_total_item) 
+VALUES (5, 5, 2, 6, 12);
+
+-- D)
+SELECT nm_produto
+FROM produto
+WHERE vl_produto >= 10 AND vl_produto <= 50
+
+-- E)
+SELECT produto.*, categoria.ds_categoria
+FROM produto, categoria
+WHERE produto.cd_categoria = categoria.cd_categoria 
+
+-- F)
+SELECT * 
+FROM orcamento 
+WHERE dt_emissao >= '2022/11/01' AND dt_emissao <= '2022/11/05'
+
