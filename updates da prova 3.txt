@@ -1,0 +1,19 @@
+UPDATE orcamento
+SET vl_total = 750
+WHERE nr_orcamento = 1
+
+UPDATE orcamento
+SET vl_total = 500
+WHERE nr_orcamento = 2
+
+UPDATE orcamento
+SET vl_total = 75
+WHERE nr_orcamento = 3
+
+UPDATE orcamento
+SET vl_total = 250
+WHERE nr_orcamento = 4
+
+UPDATE orcamento
+SET vl_total = 12
+WHERE nr_orcamento = 5
