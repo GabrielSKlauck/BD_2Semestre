@@ -1,6 +1,23 @@
 COLUNAS QUE ESTAO NA SUB CONSULTA DEVEM CORRESPONDER AS COLUNAS DA CONSULTA PRINCIPAL
 NAO USAR ORDER BY NA SUBCONSULT, MAS PODE USAR DEPOIS
 
+ALL:
+retorna um valor booleano como resultado
+retorna TRUE se TODOS os valores da subconsulta atenderem à condição
+é usado com SELECT, WHEREe HAVING
+
+ANY:
+retorna um valor booleano como resultado
+retorna TRUE se QUALQUER um dos valores da subconsulta atender à condição
+
+IN:
+O IN permite especificar vários valores em uma WHERE.
+O IN é um atalho para várias OR.
+
+IN é um operador para especificar vários valores em uma cláusula WHERE. 
+Com ele podemos verificar se determinada coluna está sendo mencionada em um determinado grupo de valores, 
+seja ele definido manualmente ou através de subquerys. 
+IN é um operador para especificar vários valores em uma cláusula WHERE.
 
 -- A)
 SELECT ds_cor,cd_cor
