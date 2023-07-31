@@ -5,7 +5,7 @@ FROM veiculo
 -- B)
 SELECT MIN(nr_ano_fab) AS velho, MAX(nr_ano_fab) AS novo
 FROM veiculo
-
+--Alteraçao no repositorio clonado
 -- C)
 SELECT COUNT(*) AS quantidade, nr_ano_mod AS 'ano listado'
 FROM veiculo
